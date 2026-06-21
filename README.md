@@ -10,6 +10,8 @@ Session logs are stored separately in a private repository.
 
 ### [#4 — JBPP11: ISslService::CreateContextForSystem stub missing MakeObject → no ISslContext → SSL never initialized](https://github.com/frederikkrohn/astris-crash-research/issues/4)
 
+🟢 **Investigation depth: High** — root cause traced through a 288,949-line session log with exhaustive grep evidence across 17 connection retries. Every IPC call accounted for.
+
 **Game:** The Jackbox Party Pack 11 `[0100e5b022310000]` v1.1.0  
 **Symptom:** "Connecting to Jackbox services" screen loops, retries 17× over ~90 seconds, then returns "connection not possible"  
 **Root cause:** `ISslService::CreateContextForSystem` (cmd 100, ssl:s, added in firmware 15.0.0) returns `ResultCode.Success` without calling `MakeObject`. No `ISslContext` object is placed in the IPC response. TCP connects successfully to Jackbox's servers; TLS never starts because there is no context object.  
@@ -18,11 +20,9 @@ Session logs are stored separately in a private repository.
 
 ---
 
-> ⚠️ **Issues #1–#3 below are less thoroughly evidenced than #4. Root cause descriptions are plausible based on crash log patterns but should be treated as starting points for investigation rather than confirmed diagnoses.**
-
----
-
 ### [#3 — Trine 4 (Type B): vkQueueSubmit use-after-free + SurfaceFlinger buffer overflow → black screen from frame 1](https://github.com/frederikkrohn/astris-crash-research/issues/3)
+
+🟡 **Investigation depth: Low** — plausible based on crash log patterns; root cause not deeply verified.
 
 **Game:** Trine 4: The Nightmare Prince `[010055E00CA68000]`  
 **Symptom:** Black screen immediately on launch, no frames rendered  
@@ -32,6 +32,8 @@ Session logs are stored separately in a private repository.
 
 ### [#2 — Trine 4 (Type A): DataAbort null pointer dereference at 0x20 during nn::init::Start — stubbed CreateServiceWithoutInitialize](https://github.com/frederikkrohn/astris-crash-research/issues/2)
 
+🟡 **Investigation depth: Low** — plausible based on crash log patterns; root cause not deeply verified.
+
 **Game:** Trine 4: The Nightmare Prince `[010055E00CA68000]`  
 **Symptom:** Crash during startup before any frames  
 **Root cause (unverified):** Null pointer dereference at virtual offset `0x20` during `nn::init::Start`, triggered by a stubbed `CreateServiceWithoutInitialize` returning an unusable object
@@ -39,6 +41,8 @@ Session logs are stored separately in a private repository.
 ---
 
 ### [#1 — JBPP4: InstructionAbortLowerEl crash on GuestThread.108 at ~20s (task-pool bad function pointer)](https://github.com/frederikkrohn/astris-crash-research/issues/1)
+
+🟡 **Investigation depth: Low** — plausible based on crash log patterns; root cause not deeply verified.
 
 **Game:** The Jackbox Party Pack 4 `[010053000B6C0000]`  
 **Symptom:** Hard crash ~20 seconds into gameplay  
