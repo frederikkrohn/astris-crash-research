@@ -14,7 +14,12 @@ Session logs are stored separately in a private repository.
 **Symptom:** "Connecting to Jackbox services" screen loops, retries 17× over ~90 seconds, then returns "connection not possible"  
 **Root cause:** `ISslService::CreateContextForSystem` (cmd 100, ssl:s, added in firmware 15.0.0) returns `ResultCode.Success` without calling `MakeObject`. No `ISslContext` object is placed in the IPC response. TCP connects successfully to Jackbox's servers; TLS never starts because there is no context object.  
 **Fix:** Ryubing MR !285 ("HLE: Implement CreateContextForSystem"), Canary-1.3.264 — not yet in Astris 1.0.14  
-**Also filed upstream:** [V380-Ori/Astris.Binaries#92](https://github.com/V380-Ori/Astris.Binaries/issues/92)
+**Also filed upstream:** [V380-Ori/Astris.Binaries#92](https://github.com/V380-Ori/Astris.Binaries/issues/92)  
+**Confidence:** High — root cause verified against 288,949-line session log with exhaustive grep evidence.
+
+---
+
+> ⚠️ **Issues #1–#3 below were produced with heavy AI assistance against crash logs I cannot fully interpret myself. The root cause descriptions are plausible but have not been verified with the same rigour as issue #4. Treat them as starting points for investigation, not confirmed diagnoses.**
 
 ---
 
@@ -22,7 +27,7 @@ Session logs are stored separately in a private repository.
 
 **Game:** Trine 4: The Nightmare Prince `[010055E00CA68000]`  
 **Symptom:** Black screen immediately on launch, no frames rendered  
-**Root cause:** `FAR=0x1cdc0de` (ICD_LOADER_MAGIC sentinel) in vkQueueSubmit indicates a use-after-free on a Vulkan queue object; combined with a SurfaceFlinger buffer overflow
+**Root cause (unverified):** `FAR=0x1cdc0de` (ICD_LOADER_MAGIC sentinel) in vkQueueSubmit indicates a use-after-free on a Vulkan queue object; combined with a SurfaceFlinger buffer overflow
 
 ---
 
@@ -30,7 +35,7 @@ Session logs are stored separately in a private repository.
 
 **Game:** Trine 4: The Nightmare Prince `[010055E00CA68000]`  
 **Symptom:** Crash during startup before any frames  
-**Root cause:** Null pointer dereference at virtual offset `0x20` during `nn::init::Start`, triggered by a stubbed `CreateServiceWithoutInitialize` returning an unusable object
+**Root cause (unverified):** Null pointer dereference at virtual offset `0x20` during `nn::init::Start`, triggered by a stubbed `CreateServiceWithoutInitialize` returning an unusable object
 
 ---
 
@@ -38,7 +43,7 @@ Session logs are stored separately in a private repository.
 
 **Game:** The Jackbox Party Pack 4 `[010053000B6C0000]`  
 **Symptom:** Hard crash ~20 seconds into gameplay  
-**Root cause:** `InstructionAbortLowerEl` on GuestThread.108 — bad function pointer in the game's task pool, likely from a stubbed or misimplemented service returning a null/garbage object that gets called as a function
+**Root cause (unverified):** `InstructionAbortLowerEl` on GuestThread.108 — bad function pointer in the game's task pool, likely from a stubbed or misimplemented service returning a null/garbage object that gets called as a function
 
 ---
 
