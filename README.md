@@ -10,7 +10,7 @@ Session logs are stored separately in a private repository.
 
 ### [#4 — JBPP11: ISslService::CreateContextForSystem stub missing MakeObject → no ISslContext → SSL never initialized](https://github.com/frederikkrohn/astris-crash-research/issues/4)
 
-🟢 **Thoroughly investigated** — I ran multiple sessions, captured logs, and dug into this repeatedly with Claude. Findings were cross-checked across several logs.
+🟢 **Thoroughly investigated**
 
 **Game:** The Jackbox Party Pack 11 `[0100e5b022310000]` v1.1.0  
 **Symptom:** "Connecting to Jackbox services" screen loops, retries 17× over ~90 seconds, then returns "connection not possible"  
@@ -22,7 +22,7 @@ Session logs are stored separately in a private repository.
 
 ### [#3 — Trine 4 (Type B): vkQueueSubmit use-after-free + SurfaceFlinger buffer overflow → black screen from frame 1](https://github.com/frederikkrohn/astris-crash-research/issues/3)
 
-🟡 **Lightly investigated** — I looked at the crash log once and Claude inferred a root cause. Not cross-checked or verified further.
+🟡 **Lightly investigated**
 
 **Game:** Trine 4: The Nightmare Prince `[010055E00CA68000]`  
 **Symptom:** Black screen immediately on launch, no frames rendered  
@@ -32,7 +32,7 @@ Session logs are stored separately in a private repository.
 
 ### [#2 — Trine 4 (Type A): DataAbort null pointer dereference at 0x20 during nn::init::Start — stubbed CreateServiceWithoutInitialize](https://github.com/frederikkrohn/astris-crash-research/issues/2)
 
-🟡 **Lightly investigated** — I looked at the crash log once and Claude inferred a root cause. Not cross-checked or verified further.
+🟡 **Lightly investigated**
 
 **Game:** Trine 4: The Nightmare Prince `[010055E00CA68000]`  
 **Symptom:** Crash during startup before any frames  
@@ -42,7 +42,7 @@ Session logs are stored separately in a private repository.
 
 ### [#1 — JBPP4: InstructionAbortLowerEl crash on GuestThread.108 at ~20s (task-pool bad function pointer)](https://github.com/frederikkrohn/astris-crash-research/issues/1)
 
-🟡 **Lightly investigated** — I looked at the crash log once and Claude inferred a root cause. Not cross-checked or verified further.
+🟡 **Lightly investigated**
 
 **Game:** The Jackbox Party Pack 4 `[010053000B6C0000]`  
 **Symptom:** Hard crash ~20 seconds into gameplay  
